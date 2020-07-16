@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9673206E24C0F3C2006DC2B2 /* PadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673206D24C0F3C2006DC2B2 /* PadView.swift */; };
+		9673207024C0F4E2006DC2B2 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673206F24C0F4E2006DC2B2 /* Item.swift */; };
+		9673207224C0F9AB006DC2B2 /* PadDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673207124C0F9AB006DC2B2 /* PadDropDelegate.swift */; };
 		96A7C88124C0F36600DB826D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7C88024C0F36600DB826D /* AppDelegate.swift */; };
 		96A7C88324C0F36600DB826D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7C88224C0F36600DB826D /* SceneDelegate.swift */; };
 		96A7C88524C0F36600DB826D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7C88424C0F36600DB826D /* ContentView.swift */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9673206D24C0F3C2006DC2B2 /* PadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PadView.swift; sourceTree = "<group>"; };
+		9673206F24C0F4E2006DC2B2 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		9673207124C0F9AB006DC2B2 /* PadDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PadDropDelegate.swift; sourceTree = "<group>"; };
 		96A7C87D24C0F36600DB826D /* unhand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = unhand.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A7C88024C0F36600DB826D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96A7C88224C0F36600DB826D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +64,9 @@
 			children = (
 				96A7C88024C0F36600DB826D /* AppDelegate.swift */,
 				96A7C88224C0F36600DB826D /* SceneDelegate.swift */,
+				9673206D24C0F3C2006DC2B2 /* PadView.swift */,
+				9673207124C0F9AB006DC2B2 /* PadDropDelegate.swift */,
+				9673206F24C0F4E2006DC2B2 /* Item.swift */,
 				96A7C88424C0F36600DB826D /* ContentView.swift */,
 				96A7C88624C0F36B00DB826D /* Assets.xcassets */,
 				96A7C88B24C0F36B00DB826D /* LaunchScreen.storyboard */,
@@ -102,7 +111,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = garrepi;
 				TargetAttributes = {
 					96A7C87C24C0F36600DB826D = {
@@ -146,7 +155,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9673207224C0F9AB006DC2B2 /* PadDropDelegate.swift in Sources */,
+				9673207024C0F4E2006DC2B2 /* Item.swift in Sources */,
 				96A7C88124C0F36600DB826D /* AppDelegate.swift in Sources */,
+				9673206E24C0F3C2006DC2B2 /* PadView.swift in Sources */,
 				96A7C88324C0F36600DB826D /* SceneDelegate.swift in Sources */,
 				96A7C88524C0F36600DB826D /* ContentView.swift in Sources */,
 			);
@@ -192,6 +204,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -252,6 +265,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
