@@ -1,32 +1,30 @@
 import SwiftUI
 
 struct PadView: View {
-    var heldItems = [Item]()
+    var items = [Item]()
 
     init(with items: [Item] = []) {
-        self.heldItems = items
+        self.items = items
     }
     
     var body: some View {
-        VStack {
-            DroppedItems(heldItems)
-        }
+        ItemsList(items)
     }
 }
 
-struct DroppedItems: View {
-    @State private var heldItems = [Item]()
+struct ItemsList: View {
+    @State private var items = [Item]()
     init (_ items: [Item] = []) {
-        self.heldItems = items
+        self.items = items
     }
     
     var body: some View {
         VStack {
-            let empty = heldItems.count == 0
+            let empty = items.count == 0
             if empty {
                 Text("Drop Items Here!")
             }
-            ForEach(self.heldItems) { item in
+            ForEach(self.items) { item in
                 HStack {
                     Image(uiImage: item.image ?? UIImage())
                         .resizable()
@@ -36,9 +34,11 @@ struct DroppedItems: View {
             }
             
             Image(systemName: empty ? "cube.box" : "cube.box.fill")
-        }.onDrop(
+                .font(.largeTitle)
+        }
+        .onDrop(
             of: ["public.url"],
-            delegate: PadDropDelegate(droppedItems: $heldItems)
+            delegate: PadDropDelegate(droppedItems: $items)
         )
     }
 }
