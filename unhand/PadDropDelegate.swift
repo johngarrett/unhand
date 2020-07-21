@@ -5,6 +5,7 @@ import UIKit
 struct PadDropDelegate: DropDelegate {
     @Binding var padState: PadState
     @Binding var droppedItems: [Item]
+    @Binding var incomingItem: DropInfo?
 
     func performDrop(info: DropInfo) -> Bool {
         guard info.hasItemsConforming(to: ["public.item"]) else {
@@ -40,7 +41,7 @@ struct PadDropDelegate: DropDelegate {
     
     func dropEntered(info: DropInfo) {
         padState = .dragEntered
-        print("location: \(info.location.x) x \(info.location.y)")
+        incomingItem = info
     }
     
     func dropExited(info: DropInfo) {
