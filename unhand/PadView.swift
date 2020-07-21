@@ -8,8 +8,7 @@ struct PadView: View {
             [
                 Item(name: "Spotify", url: URL(string: "www.google.com"))
             ]
-        )
-        .scaledToFit()
+        ).padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
     }
 }
 
@@ -27,20 +26,18 @@ struct ItemsList: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             if padState == .dragEntered {
                 DropHereOverlay()
             } else {
-                if items.count == 0 {
-                    Text("Drop Items Here!")
-                }
                 ForEach(self.items) { item in
                     ItemBlob(item: item)
                 }
+                Text("Drop Items Here!")
+                    .font(.system(size: 20, weight: .bold))
+                Image(systemName: items.count == 0 ? "cube.box" : "cube.box.fill")
+                    .font(.system(size: 40, weight: .medium))
             }
-            
-            Image(systemName: items.count == 0 ? "cube.box" : "cube.box.fill")
-                .font(.largeTitle)
         }
         .onDrop(
             of: ["public.item"],
@@ -53,8 +50,9 @@ struct DropHereOverlay: View {
     var body: some View {
         VStack {
             Text("Drop Here!")
+                .font(.system(size: 20, weight: .bold))
             Image(systemName: "cube.box")
-                .font(.largeTitle)
+                .font(.system(size: 40, weight: .medium))
         }
     }
 }

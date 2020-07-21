@@ -16,19 +16,13 @@ struct PadDropDelegate: DropDelegate {
             let droppedItem = Item()
             droppedItem.name = item.suggestedName
             
-            item.loadItem(forTypeIdentifier: "public.image", options: nil) { image, error in
-                if let encodedImage = image as? UIImage {
-                    print("can and has loaded image")
-                    droppedItem.image = encodedImage
-                }
-            }
-            
             item.loadObject(ofClass: URL.self) { url, error in
                 if let url = url {
                     print(url)
                     droppedItem.url = url
                 }
             }
+            
             item.loadObject(ofClass: UIImage.self) { image, error in
                     if let image = image as? UIImage {
                         print("loaded image")
@@ -47,6 +41,7 @@ struct PadDropDelegate: DropDelegate {
             self.droppedItems.append(droppedItem)
         }
         
+        padState = .idle
         return true
     }
     
