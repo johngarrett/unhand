@@ -3,6 +3,7 @@ import SwiftUI
 import UIKit
 
 struct PadDropDelegate: DropDelegate {
+    @Binding var padState: PadState
     @Binding var droppedItems: [Item]
 
     func performDrop(info: DropInfo) -> Bool {
@@ -16,13 +17,26 @@ struct PadDropDelegate: DropDelegate {
             droppedItem.name = item.suggestedName
             
             item.loadItem(forTypeIdentifier: "public.image", options: nil) { image, error in
-                print("can load image")
                 if let encodedImage = image as? UIImage {
-                    print("ecnoded")
+                    print("can and has loaded image")
                     droppedItem.image = encodedImage
                 }
             }
             
+            item.loadObject(ofClass: URL.self) { url, error in
+                if let url = url {
+                    print(url)
+                    droppedItem.url = url
+                }
+            }
+            item.loadObject(ofClass: UIImage.self) { image, error in
+                    if let image = image as? UIImage {
+                        print("loaded image")
+                        droppedItem.name = item.suggestedName
+                        droppedItem.image = image
+                    }
+            }
+//
 //            if item.canLoadObject(ofClass: UIImage.self) {
 //                item.loadObject(ofClass: UIImage.self) { image, error in
 //                    if let _ = image as? UIImage {
@@ -30,13 +44,6 @@ struct PadDropDelegate: DropDelegate {
 //                    }
 //                }
 //            }
-            
-            item.loadItem(forTypeIdentifier: "public.url", options: nil) { item, error in
-                guard let data = item as? Data, let url = URL(dataRepresentation: data, relativeTo: nil) else {
-                    return
-                }
-                droppedItem.url = url
-            }
             self.droppedItems.append(droppedItem)
         }
         
@@ -44,10 +51,12 @@ struct PadDropDelegate: DropDelegate {
     }
     
     func dropEntered(info: DropInfo) {
-        print("DOP ENTERRED")
+        padState = .dragEntered
+        print("location: \(info.location.x) x \(info.location.y)")
     }
     
     func dropExited(info: DropInfo) {
+        padState = .idle
         print("DOP exited")
     }
 }
