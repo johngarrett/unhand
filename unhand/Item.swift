@@ -4,6 +4,7 @@ import UIKit
 class Item: Identifiable {
     static func == (lhs: Item, rhs: Item) -> Bool { lhs.id == rhs.id }
     
+    let itemProvider: NSItemProvider
     var id = UUID()
     var name: String?
     var url: URL?
@@ -26,7 +27,8 @@ class Item: Identifiable {
      UIColor
      UIImage
      */
-    init(name: String? = nil, url: URL? = nil, color: UIColor? = nil, image: UIImage? = nil) {
+    init(_ itemProvider: NSItemProvider, name: String? = nil, url: URL? = nil, color: UIColor? = nil, image: UIImage? = nil) {
+        self.itemProvider = itemProvider
         self.name = name
         self.url = url
         self.color = color

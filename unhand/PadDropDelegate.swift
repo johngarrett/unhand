@@ -13,12 +13,11 @@ struct PadDropDelegate: DropDelegate {
         }
         let items = info.itemProviders(for: ["public.item"])
         for item in items {
-            let droppedItem = Item()
+            let droppedItem = Item(item)
             droppedItem.name = item.suggestedName
             
             item.loadObject(ofClass: URL.self) { url, error in
                 if let url = url {
-                    print(url)
                     droppedItem.url = url
                 }
             }
@@ -30,14 +29,8 @@ struct PadDropDelegate: DropDelegate {
                         droppedItem.image = image
                     }
             }
-//
-//            if item.canLoadObject(ofClass: UIImage.self) {
-//                item.loadObject(ofClass: UIImage.self) { image, error in
-//                    if let _ = image as? UIImage {
-//                        print(item.suggestedName)
-//                    }
-//                }
-//            }
+            
+            
             self.droppedItems.append(droppedItem)
         }
         
