@@ -22,9 +22,7 @@ struct ItemsList: View {
                 } else {
                     ForEach(self.items) { item in
                         ItemBlob(item: item)
-                            .padding(.all, 10)
-                            .frame(minWidth: geo.size.width, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-
+                            .frame(width: geo.size.width)
                     }
                     Text("Drop Items Here!")
                         .font(.system(size: 20, weight: .bold))
@@ -62,12 +60,13 @@ struct ItemBlob: View {
             }
         }
         .padding()
-        .overlay(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.black, lineWidth: 4)
-        )
+//        .overlay(
+//            RoundedRectangle(cornerRadius: 8)
+//                .stroke(Color.black, lineWidth: 4)
+//        )
         .onDrag {
             item.itemProvider
         }
+        .frame(maxWidth: .infinity)
     }
 }

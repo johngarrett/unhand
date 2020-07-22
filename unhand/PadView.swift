@@ -7,7 +7,7 @@ struct PadView: View {
     var body: some View {
         GeometryReader { geomtry in
             VStack {
-                ItemsList()
+                ItemsList(storedItems)
             }
             .padding(.all, 10)
             .frame(width: geomtry.size.width, height: geomtry.size.height)
