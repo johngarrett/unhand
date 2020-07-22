@@ -20,14 +20,25 @@ struct ItemsList: View {
                 if padState == .dragEntered {
                     DropOverlay(incomingItem)
                 } else {
-                    ForEach(self.items) { item in
-                        ItemBlob(item: item)
-                            .frame(width: geo.size.width)
+                    VStack(spacing: 20) {
+                        Text(items.count == 0 ? "Drop items here!" : "Drop more items below!")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(items.count == 0 ? .primary : .secondary)
+                        Image(systemName: items.count == 0 ? "cube.box" : "cube.box.fill")
+                            .font(.system(size: 40, weight: .medium))
+                            .foregroundColor(items.count == 0 ? .primary : .secondary)
                     }
-                    Text("Drop Items Here!")
-                        .font(.system(size: 20, weight: .bold))
-                    Image(systemName: items.count == 0 ? "cube.box" : "cube.box.fill")
-                        .font(.system(size: 40, weight: .medium))
+                    .padding(.vertical, 10)
+                    if items.count != 0 {
+                        Spacer()
+                        ScrollView {
+                            ForEach(self.items.reversed()) { item in
+                                ItemBlob(item: item)
+                                    .padding(5)
+                                    .frame(width: geo.size.width)
+                            }
+                        }
+                    }
                 }
             }
             .scaledToFill()
@@ -47,9 +58,9 @@ struct ItemBlob: View {
             if let image = item.image {
                 Image(uiImage: image)
                     .resizable()
+                    .aspectRatio(CGSize(width: image.size.width, height: image.size.height), contentMode: .fit)
                     .cornerRadius(8)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: 100)
+                    .frame(maxHeight: image.size.width * (image.size.height/image.size.width))
             }
             VStack(spacing: 10) {
                 if let name = item.name {
