@@ -52,14 +52,23 @@ struct ItemBlob: View {
                     .frame(maxWidth: 100)
             }
             VStack(spacing: 10) {
-                Text(item.name ?? "")
+                if let name = item.name {
+                Text(name)
                     .font(.system(size: 16, weight: .bold))
-                Text(item.url?.absoluteString.removingPercentEncoding ?? "NO URL")
-                    .font(.system(.body, design: .monospaced))
-                    .lineLimit(5)
+                }
+                if let url = item.url?.absoluteString.removingPercentEncoding {
+                    HStack {
+                        Image(systemName: "link")
+                            .font(.system(.caption, design: .monospaced))
+                        Text(url)
+                            .font(.system(.caption, design: .monospaced))
+                            .lineLimit(5)
+                    }
+                }
             }
         }
         .padding()
+        .border(Color.black, width: 4)
 //        .overlay(
 //            RoundedRectangle(cornerRadius: 8)
 //                .stroke(Color.black, lineWidth: 4)

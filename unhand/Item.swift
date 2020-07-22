@@ -19,7 +19,6 @@ class Item: Identifiable, ObservableObject {
      MKMapItem
      NSAttributedString
      NSMutableString
-     NSString
      NSTextStorage
      NSURL
      NSUserActivity

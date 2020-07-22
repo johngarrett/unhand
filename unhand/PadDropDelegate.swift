@@ -15,8 +15,6 @@ struct PadDropDelegate: DropDelegate {
         let items = info.itemProviders(for: ["public.item"])
         for item in items {
             let droppedItem = Item(item)
-            droppedItem.name = item.suggestedName
-            
             item.loadObject(ofClass: URL.self) { url, error in
                 if let url = url {
                     DispatchQueue.main.async {
@@ -29,7 +27,6 @@ struct PadDropDelegate: DropDelegate {
                     if let image = image as? UIImage {
                         print("loaded image")
                         DispatchQueue.main.async {
-                            droppedItem.name = item.suggestedName
                             droppedItem.image = image
                         }
                     }
