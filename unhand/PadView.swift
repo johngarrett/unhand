@@ -5,18 +5,13 @@ struct PadView: View {
     var storedItems = [Item]()
     
     var body: some View {
-        VStack {
-            ItemsList()
-            Button("HISTORY") {
-                self.showHistorySheet = true
-            }.popover(
-                isPresented: self.$showHistorySheet
-            ) {
-                Text("History Popover")
+        GeometryReader { geomtry in
+            VStack {
+                ItemsList()
             }
-            .font(.system(size: 14, weight: .heavy))
+            .padding(.all, 10)
+            .frame(width: geomtry.size.width, height: geomtry.size.height)
         }
-        .padding(.all, 10)
     }
 }
 
