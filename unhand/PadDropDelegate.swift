@@ -19,15 +19,19 @@ struct PadDropDelegate: DropDelegate {
             
             item.loadObject(ofClass: URL.self) { url, error in
                 if let url = url {
-                    droppedItem.url = url
+                    DispatchQueue.main.async {
+                        droppedItem.url = url
+                    }
                 }
             }
             
             item.loadObject(ofClass: UIImage.self) { image, error in
                     if let image = image as? UIImage {
                         print("loaded image")
-                        droppedItem.name = item.suggestedName
-                        droppedItem.image = image
+                        DispatchQueue.main.async {
+                            droppedItem.name = item.suggestedName
+                            droppedItem.image = image
+                        }
                     }
             }
             
@@ -45,7 +49,7 @@ struct PadDropDelegate: DropDelegate {
     }
     
     func dropExited(info: DropInfo) {
-        padState = .idle
+//        padState = .idle
         print("DOP exited")
     }
 }

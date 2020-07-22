@@ -38,9 +38,9 @@ struct ItemsList: View {
 }
 
 struct ItemBlob: View {
-    let item: Item
+    @ObservedObject var item: Item
     var body: some View {
-        HStack {
+        VStack {
             if let image = item.image {
                 Image(uiImage: image)
                     .cornerRadius(8)

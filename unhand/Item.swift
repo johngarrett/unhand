@@ -1,15 +1,15 @@
 import Foundation
 import UIKit
 
-class Item: Identifiable {
+class Item: Identifiable, ObservableObject {
     static func == (lhs: Item, rhs: Item) -> Bool { lhs.id == rhs.id }
     
     let itemProvider: NSItemProvider
     var id = UUID()
-    var name: String?
-    var url: URL?
-    var color: UIColor?
-    var image: UIImage?
+    @Published var name: String?
+    @Published var url: URL?
+    @Published var color: UIColor?
+    @Published var image: UIImage?
     /*
      AVFragmentedAsset
      AVURLAsset
