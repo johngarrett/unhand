@@ -15,43 +15,50 @@ struct ItemsList: View {
     }
     
     var body: some View {
-        GeometryReader { geo in
-            VStack(alignment: .center, spacing: 10) {
-                if padState == .dragEntered {
-                    DropOverlay(incomingItem)
-                } else {
-                    VStack(spacing: 20) {
-                        Text(items.count == 0 ? "Drop items here!" : "Drop more items below!")
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(items.count == 0 ? .primary : .secondary)
-                        Image(systemName: items.count == 0 ? "cube.box" : "cube.box.fill")
-                            .font(.system(size: 40, weight: .medium))
-                            .foregroundColor(items.count == 0 ? .primary : .secondary)
-                    }
-                    .padding(.vertical, 10)
-                    if items.count != 0 {
-                        Spacer()
-                        ScrollView {
-                            ForEach(self.items.reversed()) { item in
-                                ItemBlob(item: item)
-                                    .padding(5)
-                                    .frame(width: geo.size.width)
-                            }
+        VStack(alignment: .center, spacing: 10) {
+            if padState == .dragEntered {
+                DropOverlay(incomingItem)
+            } else {
+                VStack(spacing: 20) {
+                    Text(items.isEmpty ? "Drop items here!" : "Drop more items below!")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(items.isEmpty ? .primary : .secondary)
+                    Image(systemName: items.isEmpty ? "cube.box" : "cube.box.fill")
+                        .font(.system(size: 40, weight: .medium))
+                        .foregroundColor(items.isEmpty ? .primary : .secondary)
+                }
+                .padding(.vertical, 10)
+                if !items.isEmpty {
+                    Spacer()
+                    ScrollView {
+                        ForEach(self.items.reversed()) { item in
+                            ItemBlob(item: item)
+                                .padding(5)
+                                .frame(maxWidth: .infinity)
+                                .onDrag {
+                                    if let index = items.firstIndex(where: {$0 == item }) {
+                                        items.remove(at: index)
+                                    }
+                                    return NSItemProvider(object: item)
+                                }
                         }
                     }
                 }
             }
-            .scaledToFill()
-            .onDrop(
-                of: ["public.item"],
-                delegate: PadDropDelegate(padState: $padState, droppedItems: $items, incomingItem: $incomingItem)
-            )
         }
+        .onDrop(
+            of: ["public.item"],
+            delegate: PadDropDelegate(
+                padState: $padState,
+                droppedItems: $items,
+                incomingItem: $incomingItem
+            )
+        )
     }
 }
 
 struct ItemBlob: View {
-    @ObservedObject var item: Item
+    let item: Item
     
     var body: some View {
         HStack {
@@ -80,13 +87,6 @@ struct ItemBlob: View {
         }
         .padding()
         .border(Color.black, width: 4)
-//        .overlay(
-//            RoundedRectangle(cornerRadius: 8)
-//                .stroke(Color.black, lineWidth: 4)
-//        )
-        .onDrag {
-            item.itemProvider
-        }
         .frame(maxWidth: .infinity)
     }
 }

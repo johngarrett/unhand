@@ -15,6 +15,14 @@ struct PadDropDelegate: DropDelegate {
         let items = info.itemProviders(for: ["public.item"])
         for item in items {
             let droppedItem = Item(item)
+            item.loadObject(ofClass: String.self) { string, error in
+                if let string = string {
+                    DispatchQueue.main.async {
+                        droppedItem.name = string
+                    }
+                }
+            }
+            
             item.loadObject(ofClass: URL.self) { url, error in
                 if let url = url {
                     DispatchQueue.main.async {
@@ -31,15 +39,6 @@ struct PadDropDelegate: DropDelegate {
                         }
                     }
             }
-            
-            item.loadObject(ofClass: String.self) { string, error in
-                if let string = string {
-                    DispatchQueue.main.async {
-                        droppedItem.name = string
-                    }
-                }
-            }
-            
             
             self.droppedItems.append(droppedItem)
         }
