@@ -1,21 +1,39 @@
 import Foundation
 import SwiftUI
 import UIKit
+import SwiftUTI
 
 struct PadDropDelegate: DropDelegate {
     @Binding var padState: PadState
     @Binding var droppedItems: [Item]
     @Binding var incomingItem: DropInfo?
-
+    
+    
+    func validateDrop(info: DropInfo) -> Bool {
+        info.hasItemsConforming(to: Item.avaliableUTIs)
+    }
+    
+    
     func performDrop(info: DropInfo) -> Bool {
         guard info.hasItemsConforming(to: ["public.item"]) else {
             print("Does not conform to type public.item")
             return false
         }
         let items = info.itemProviders(for: ["public.item"])
-        for item in items {
+        
+        items.forEach { item in
+            
             let droppedItem = Item(item)
-            item.loadObject(ofClass: String.self) { string, error in
+            
+            for uti in Item.avaliableUTIs {
+                item.loadItem(forTypeIdentifier: uti, options: nil) { result, error in
+                    print(result)
+                    print(error)
+                    print(uti)
+                }
+            }
+            
+            let _ = item.loadObject(ofClass: String.self) { string, error in
                 if let string = string {
                     DispatchQueue.main.async {
                         droppedItem.name = string
@@ -23,7 +41,7 @@ struct PadDropDelegate: DropDelegate {
                 }
             }
             
-            item.loadObject(ofClass: URL.self) { url, error in
+            let _ = item.loadObject(ofClass: URL.self) { url, error in
                 if let url = url {
                     DispatchQueue.main.async {
                         droppedItem.url = url
@@ -31,7 +49,7 @@ struct PadDropDelegate: DropDelegate {
                 }
             }
             
-            item.loadObject(ofClass: UIImage.self) { image, error in
+            let _ = item.loadObject(ofClass: UIImage.self) { image, error in
                     if let image = image as? UIImage {
                         print("loaded image")
                         DispatchQueue.main.async {

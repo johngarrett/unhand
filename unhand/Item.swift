@@ -1,7 +1,10 @@
 import Foundation
+import Combine
 import UIKit
 
 class Item: NSObject, Identifiable, ObservableObject {
+    static public let avaliableUTIs = ["public.image", "public.file-url", "public.directory"]
+
     static func == (lhs: Item, rhs: Item) -> Bool {
         lhs.name == rhs.name
         && lhs.image == rhs.image
@@ -38,9 +41,10 @@ class Item: NSObject, Identifiable, ObservableObject {
         self.image = image
     }
 }
+
 extension Item: NSItemProviderWriting {
     static var writableTypeIdentifiersForItemProvider: [String] {
-        return ["public.image", "public.url", "public.item"]
+        avaliableUTIs
     }
     
     func loadData(
