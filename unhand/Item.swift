@@ -2,6 +2,23 @@ import Foundation
 import Combine
 import UIKit
 
+/*
+ AVFragmentedAsset
+ AVURLAsset
+ CNContact
+ CNMutableContact
+ CSLocalizedString
+ MKMapItem
+ NSAttributedString
+ NSMutableString
+ NSTextStorage
+ NSURL
+ NSUserActivity
+ PHLivePhoto
+ UIColor
+ UIImage
+ */
+
 class Item: NSObject, Identifiable, ObservableObject {
     static public let avaliableUTIs = ["public.image", "public.file-url", "public.directory"]
 
@@ -13,26 +30,11 @@ class Item: NSObject, Identifiable, ObservableObject {
     
     unowned var itemProvider: NSItemProvider
     var id = UUID()
-    @Published var name: String?
-    @Published var url: URL?
-    @Published var color: UIColor?
-    @Published var image: UIImage?
-    /*
-     AVFragmentedAsset
-     AVURLAsset
-     CNContact
-     CNMutableContact
-     CSLocalizedString
-     MKMapItem
-     NSAttributedString
-     NSMutableString
-     NSTextStorage
-     NSURL
-     NSUserActivity
-     PHLivePhoto
-     UIColor
-     UIImage
-     */
+    @Published var name: String? = nil
+    @Published var url: URL? = nil
+    @Published var color: UIColor? = nil
+    @Published var image: UIImage? = nil
+    
     init(_ itemProvider: NSItemProvider, name: String? = nil, url: URL? = nil, color: UIColor? = nil, image: UIImage? = nil) {
         self.itemProvider = itemProvider
         self.name = name

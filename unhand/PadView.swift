@@ -33,7 +33,7 @@ struct PadView: View {
                     ScrollView {
                         ForEach(items.reversed(), id: \.self) { item in
                             ItemRow(item: item)
-                                .frame(maxWidth: .infinity)
+                                .padding(8)
                                 .onDrag { NSItemProvider(object: item) }
                         }
                     }
