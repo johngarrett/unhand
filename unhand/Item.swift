@@ -54,14 +54,14 @@ extension Item: NSItemProviderWriting {
         
         if typeIdentifier == "public.url", let url = url {
             completionHandler(url.dataRepresentation, nil)
+        } else if typeIdentifier == "public.file-url", let url = url {
+            completionHandler(url.dataRepresentation, nil)
         }
         else if typeIdentifier == "public.image", let image = image {
             completionHandler(image.pngData(), nil)
         } else {
-            completionHandler(itemProvider.teamData, nil)
+            completionHandler(nil, nil)
         }
         return nil
     }
-    
-    
 }

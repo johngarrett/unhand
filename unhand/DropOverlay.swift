@@ -11,28 +11,26 @@ struct DropOverlay: View {
     }
 
     var body: some View {
-        VStack(spacing: 10) {
-            Text("Drop Here!")
-                .font(.system(size: 20, weight: .bold))
-            DropBox()
+        ZStack {
+            VStack(spacing: 10) {
+                Text("Drop Here!")
+                    .font(.system(size: 20, weight: .bold))
+                DropBox()
+            }.zIndex(0)
+            IncomingRect(incomingItem: $incomingItem).zIndex(1.0)
         }
-        .background(
-            Rectangle()
-                .fill(Color.white)
-                .scaledToFill()
-        )
-//            IncomingRect(incomingItem: $incomingItem)
-//                .zIndex(1.0)
-        
+        .background(Rectangle().fill(Color.white))
     }
 }
 
 struct IncomingRect: View {
-    @Binding var incomingItem: DropInfo!
+    @Binding var incomingItem: DropInfo?
     
     var body: some View {
-        Rectangle()
-            .position(x: incomingItem.location.x, y: incomingItem.location.y)
+        if let location = incomingItem?.location {
+            Rectangle()
+                .position(x: location.x, y: location.y)
+        }
     }
 }
 

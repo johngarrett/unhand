@@ -24,14 +24,14 @@ struct PadDropDelegate: DropDelegate {
         items.forEach { item in
             
             let droppedItem = Item(item)
-            
-            for uti in Item.avaliableUTIs {
-                item.loadItem(forTypeIdentifier: uti, options: nil) { result, error in
-                    print(result)
-                    print(error)
-                    print(uti)
-                }
-            }
+//
+//            for uti in Item.avaliableUTIs {
+//                item.loadItem(forTypeIdentifier: uti, options: nil) { result, error in
+//                    print(result)
+//                    print(error)
+//                    print(uti)
+//                }
+//            }
             
             let _ = item.loadObject(ofClass: String.self) { string, error in
                 if let string = string {
@@ -50,12 +50,12 @@ struct PadDropDelegate: DropDelegate {
             }
             
             let _ = item.loadObject(ofClass: UIImage.self) { image, error in
-                    if let image = image as? UIImage {
-                        print("loaded image")
-                        DispatchQueue.main.async {
-                            droppedItem.image = image
-                        }
+                if let image = image as? UIImage {
+                    print("loaded image")
+                    DispatchQueue.main.async {
+                        droppedItem.image = image
                     }
+                }
             }
             
             self.droppedItems.append(droppedItem)

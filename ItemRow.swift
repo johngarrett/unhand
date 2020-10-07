@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ItemRow: View {
-    var item: Item
+    @ObservedObject var item: Item
     
     var body: some View {
         HStack {
