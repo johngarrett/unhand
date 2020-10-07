@@ -1,31 +1,52 @@
 import SwiftUI
 
 struct PadView: View {
+    @State var dragIncoming: Bool = false
+    @State private var incomingItem: DropInfo? = nil
     @State private var showHistorySheet: Bool = false
-    var storedItems = [Item]()
+    @State var items = [Item]()
     
     var body: some View {
-        GeometryReader { geomtry in
-            VStack {
-                ItemsList(storedItems)
+        ZStack {
+            if dragIncoming {
+                DropOverlay(incomingItem)
+                    .scaledToFill()
+                    .zIndex(1)
             }
-            .padding(.all, 10)
-            .frame(width: geomtry.size.width, height: geomtry.size.height)
+            if items.isEmpty {
+                VStack(spacing: 20) {
+                    Text("Drop items here!")
+                        .font(.title)
+                        .foregroundColor(.primary)
+                    Image(systemName:"cube.box")
+                        .font(.largeTitle)
+                        .foregroundColor(.primary)
+                }.frame(maxHeight: .infinity)
+            } else {
+                VStack(spacing: 20) {
+                    Text("Drop more items here")
+                        .font(.title)
+                        .foregroundColor(.secondary)
+                    Image(systemName: "cube.box.fill")
+                        .font(.largeTitle)
+                        .foregroundColor(.secondary)
+                    ScrollView {
+                        ForEach(items.reversed(), id: \.self) { item in
+                            ItemRow(item: item)
+                                .onDrag { NSItemProvider(object: item) }
+                        }
+                    }
+                }
+            }
         }
-    }
-}
-
-struct PadView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            PadView()
-            ItemBlob(item:
-                        Item(
-                            NSItemProvider(),
-                            name: "spotify uri",
-                            url: URL(string: "https;/as;ljoifjsdaoijsadio")
-                        )
+        .onDrop(
+            of: ["public.item"],
+            delegate: PadDropDelegate(
+                dragIncoming: $dragIncoming,
+                droppedItems: $items,
+                incomingItem: $incomingItem
             )
-        }
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

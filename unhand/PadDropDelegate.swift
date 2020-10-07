@@ -4,7 +4,7 @@ import UIKit
 import SwiftUTI
 
 struct PadDropDelegate: DropDelegate {
-    @Binding var padState: PadState
+    @Binding var dragIncoming: Bool
     @Binding var droppedItems: [Item]
     @Binding var incomingItem: DropInfo?
     
@@ -61,17 +61,17 @@ struct PadDropDelegate: DropDelegate {
             self.droppedItems.append(droppedItem)
         }
         
-        padState = .idle
+        dragIncoming = false
         return true
     }
     
     func dropEntered(info: DropInfo) {
-        padState = .dragEntered
+        dragIncoming = true
         incomingItem = info
     }
     
     func dropExited(info: DropInfo) {
-//        padState = .idle
+        dragIncoming = false
         print("DOP exited")
     }
 }
