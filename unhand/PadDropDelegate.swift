@@ -7,13 +7,15 @@ struct PadDropDelegate: DropDelegate {
     @Binding var dragIncoming: Bool
     @Binding var droppedItems: [Item]
     @Binding var incomingItem: DropInfo?
-    
+   
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        DropProposal(operation: .copy)
+    }
     
     func validateDrop(info: DropInfo) -> Bool {
         info.hasItemsConforming(to: Item.avaliableUTIs)
     }
-    
-    
+
     func performDrop(info: DropInfo) -> Bool {
         guard info.hasItemsConforming(to: ["public.item"]) else {
             print("Does not conform to type public.item")
