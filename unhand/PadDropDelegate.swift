@@ -1,7 +1,6 @@
 import Foundation
 import SwiftUI
 import UIKit
-import SwiftUTI
 
 struct PadDropDelegate: DropDelegate {
     @Binding var dragIncoming: Bool
